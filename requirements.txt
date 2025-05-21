@@ -1,5 +1,4 @@
-beautifulsoup4==4.13.4
-bs4==0.0.2
+curl_cffi
 certifi==2025.4.26
 cffi==1.17.1
 curl_cffi==0.11.1
