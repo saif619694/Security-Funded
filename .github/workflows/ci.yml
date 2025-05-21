@@ -1,0 +1,21 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main # or your default branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t security-funded .
+
+    # You can add more steps here, e.g., for testing, scanning, etc.
+    # - name: Run tests
+    #   run: docker run security-funded pytest
