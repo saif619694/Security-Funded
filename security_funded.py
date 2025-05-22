@@ -196,8 +196,8 @@ def parse_article(link):
 
 
 def get_data():
-    db_username = os.getenv("DB_USERNAME", "saifnewblog")
-    db_password = os.getenv("DB_PASSWORD", "klnuovBDkklSd7yI")
+    db_username = os.getenv("DB_USERNAME")
+    db_password = os.getenv("DB_PASSWORD")
     client = MongoClient(f'mongodb+srv://{db_username}:{db_password}@securityfunded.v19tawj.mongodb.net/')
     db = client['security_funded']
     collection = db['SecurityFunded']
