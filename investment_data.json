@@ -1,0 +1,244 @@
+[
+    {
+        "description": "Persona , a United States-based identity verification and anti-fraud platform for customer identities and account recovery, raised a $200.0M Series D from Founders Fund and Ribbit Capital",
+        "company_name": "Persona",
+        "company_url": "https://withpersona.com/",
+        "amount": 200000000,
+        "round": "Series D",
+        "investors": [
+            {
+                "name": "Founders Fund",
+                "url": "https://foundersfund.com/"
+            },
+            {
+                "name": "Ribbit Capital",
+                "url": "https://ribbitcap.com/"
+            }
+        ],
+        "story_link": "https://aithority.com/machine-learning/persona-raises-200m-at-2b-valuation-to-build-the-verified-identity-layer-for-an-agentic-ai-world/",
+        "Source": "AITHORITY",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "CAST AI , a United States-based Kubernetes security and cloud application and cost optimization platform, raised a $108.0M Series C from G2 Venture Partners and SoftBank Vision Fund",
+        "company_name": "CAST AI",
+        "company_url": "http://www.cast.ai",
+        "amount": 108000000,
+        "round": "Series C",
+        "investors": [
+            {
+                "name": "G2 Venture Partners",
+                "url": "https://g2vp.com/"
+            },
+            {
+                "name": "SoftBank Vision Fund",
+                "url": "https://visionfund.com/uk"
+            }
+        ],
+        "story_link": "https://cast.ai/press-release/cast-ai-closes-108m-series-c-round/",
+        "Source": "CAST",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "Veza , a United States-based data protection platform focused on identity and authorization, raised a $108.0M Series D from New Enterprise Associates (NEA)",
+        "company_name": "Veza",
+        "company_url": "http://www.veza.com",
+        "amount": 108000000,
+        "round": "Series D",
+        "investors": [
+            {
+                "name": "New Enterprise Associates (NEA)",
+                "url": "http://www.nea.com"
+            }
+        ],
+        "story_link": "https://www.finsmes.com/2025/04/veza-raises-108m-in-series-d-at-808m-valuation.html",
+        "Source": "FINSMES",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "Minimus (formerly named Gutsy), an Israel-based secure-by-design container image platform, raised a $51.0M Seed from YL Ventures and Mayfield Fund",
+        "company_name": "Minimus",
+        "company_url": "https://www.minimus.io/",
+        "amount": 51000000,
+        "round": "Seed",
+        "investors": [
+            {
+                "name": "YL Ventures",
+                "url": "https://www.ylventures.com/"
+            },
+            {
+                "name": "Mayfield Fund",
+                "url": "https://www.mayfield.com/"
+            }
+        ],
+        "story_link": "https://siliconangle.com/2025/04/28/application-security-startup-minimus-debuts-51m-reduce-cloud-software-vulnerabilities/",
+        "Source": "SILICONANGLE",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "Doppel , a United States-based brand identity and risk protection platform, raised a $35.0M Series B from Bessemer Venture Partners",
+        "company_name": "Doppel",
+        "company_url": "http://www.doppel.com",
+        "amount": 35000000,
+        "round": "Series B",
+        "investors": [
+            {
+                "name": "Bessemer Venture Partners",
+                "url": "http://www.bvp.com"
+            }
+        ],
+        "story_link": "https://www.finsmes.com/2025/05/doppel-raises-35m-in-series-b-funding.html",
+        "Source": "FINSMES",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "NetFoundry , a United States-based secure networking platform, raised a $12.0M Series A from SYN Ventures",
+        "company_name": "NetFoundry",
+        "company_url": "https://netfoundry.io/",
+        "amount": 12000000,
+        "round": "Series A",
+        "investors": [
+            {
+                "name": "SYN Ventures",
+                "url": "https://www.synventures.com"
+            }
+        ],
+        "story_link": "https://www.businesswire.com/news/home/20250428790823/en/NetFoundry-Adds-%2412-Million-Investment-to-Reinvent-Secure-Networking",
+        "Source": "BUSINESSWIRE",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "LayerX Security , an Israel-based remote browser isolation platform, raised a $11.0M Series A from Jump Capital",
+        "company_name": "LayerX Security",
+        "company_url": "http://www.layerxsecurity.com",
+        "amount": 11000000,
+        "round": "Series A",
+        "investors": [
+            {
+                "name": "Jump Capital",
+                "url": "https://jumpcap.com/"
+            }
+        ],
+        "story_link": "https://finance.yahoo.com/news/layerx-security-extends-series-funding-120000252.html",
+        "Source": "FINANCE",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "QNu Labs , an India-based quantum-resistant cryptography platform, raised a $7.1M Series A from the National Quantum Mission",
+        "company_name": "QNu Labs",
+        "company_url": "http://www.qnulabs.com",
+        "amount": 7100000,
+        "round": "Series A",
+        "investors": [
+            {
+                "name": "National Quantum Mission",
+                "url": "https://dst.gov.in/national-quantum-mission-nqm"
+            }
+        ],
+        "story_link": "https://thequantuminsider.com/2025/04/30/qnu-labs-raises-over-7m-in-funding-led-by-indias-national-quantum-mission/",
+        "Source": "THEQUANTUMINSIDER",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "Pistachio , a Norway-based security awareness training platform, raised a $7.0M Series A from Walter Ventures",
+        "company_name": "Pistachio",
+        "company_url": "http://www.pistachioapp.com",
+        "amount": 7000000,
+        "round": "Series A",
+        "investors": [
+            {
+                "name": "Walter Ventures",
+                "url": "https://www.waltervc.com"
+            }
+        ],
+        "story_link": "https://www.finsmes.com/2025/04/pistachio-raises-7m-in-series-a-funding.html",
+        "Source": "FINSMES",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "Phosphorus Cybersecurity , a United States-based Internet of Things (IoT) security platform, raised an undisclosed Venture Round from Neva SGR",
+        "company_name": "Phosphorus Cybersecurity",
+        "company_url": "http://www.phosphorus.io",
+        "investors": [
+            {
+                "name": "Neva SGR",
+                "url": "https://www.nevasgr.com/"
+            }
+        ],
+        "story_link": "https://phosphorus.io/neva-sgr-invests-in-phosphorus-cybersecurity-leader-in-security-for-the-internet-of-things/",
+        "Source": "PHOSPHORUS",
+        "date": "2025-05-05",
+        "company_type": "Product",
+        "amount": 0
+    },
+    {
+        "description": "Cyberr , a Luxembourg-based cybersecurity recruiting platform, raised a $926.7K Funding Round .",
+        "company_name": "Cyberr",
+        "company_url": "https://cyberr.ai/",
+        "amount": 926700,
+        "round": "Funding Round",
+        "investors": [],
+        "date": "2025-05-05",
+        "company_type": "Service"
+    },
+    {
+        "description": "Tulsi , a United States-based automated pen testing and red teaming platform, raised a $10.0K Grant from NC IDEA .",
+        "company_name": "Tulsi",
+        "company_url": "https://www.tul-si.com",
+        "amount": 10000,
+        "round": "Grant",
+        "investors": [
+            {
+                "name": "NC IDEA",
+                "url": "https://ncidea.org"
+            }
+        ],
+        "story_link": "https://ncidea.org",
+        "Source": "NCIDEA",
+        "date": "2025-05-05",
+        "company_type": "Service"
+    },
+    {
+        "description": "Protect AI , a United States-based platform for securing artificial intelligence (AI) and machine learning (ML) workloads, was acquired by Palo Alto Networks for an undisclosed amount . Protect AI had previously raised $108.5M in funding",
+        "company_name": "Protect AI",
+        "company_url": "http://www.protectai.com",
+        "amount": 108500000,
+        "round": "in funding",
+        "investors": [
+            {
+                "name": "Palo Alto Networks",
+                "url": "http://www.paloaltonetworks.com"
+            }
+        ],
+        "story_link": "https://www.paloaltonetworks.com/company/press/2025/palo-alto-networks-announces-intent-to-acquire-protect-ai--a-game-changing-security-for-ai-company",
+        "Source": "PALOALTONETWORKS",
+        "date": "2025-05-05",
+        "company_type": "Product"
+    },
+    {
+        "description": "AssuranceLab , an Australia-based professional services firm focused on security and compliance auditing, was acquired by Sensiba LLP for an undisclosed amount . AssuranceLab had previously raised $14.7K in funding",
+        "company_name": "AssuranceLab",
+        "company_url": "https://www.assurancelab.com.au/",
+        "amount": 14700,
+        "round": "in funding",
+        "investors": [
+            {
+                "name": "Sensiba LLP",
+                "url": "http://www.sensiba.com"
+            }
+        ],
+        "story_link": "https://www.acnnewswire.com/press-release/english/99441/sensiba-acquires-assurancelab-to-fuel-innovation-in-global-cybersecurity-and-risk-assurance",
+        "Source": "ACNNEWSWIRE",
+        "date": "2025-05-05",
+        "company_type": "Service"
+    }
+]
