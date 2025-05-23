@@ -1,11 +1,8 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-export interface FundingDataResponse {
-  data: CompanyData[];
-  totalCount: number;
-  totalPages: number;
-  currentPage: number;
-  itemsPerPage: number;
+export interface Investor {
+  name: string;
+  url?: string;
 }
 
 export interface CompanyData {
@@ -15,12 +12,20 @@ export interface CompanyData {
   company_url: string;
   amount: number;
   round: string;
-  investors: string[];
+  investors: (string | Investor)[];
   story_link: string;
   source: string;
   date: string;
   company_type: string;
   reference: string;
+}
+
+export interface FundingDataResponse {
+  data: CompanyData[];
+  totalCount: number;
+  totalPages: number;
+  currentPage: number;
+  itemsPerPage: number;
 }
 
 export interface FundingDataParams {

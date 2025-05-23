@@ -88,7 +88,8 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-black">
       <Header />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Increased container size by 10% - changed from max-w-7xl to a larger custom width */}
+      <div className="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <SearchBar 
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}

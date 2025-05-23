@@ -120,13 +120,12 @@
     50% { background-position: 100% 50%; }
   }
   
-  @keyframes pulse-neon {
-    0%, 100% { box-shadow: 0 0 20px rgba(139, 69, 255, 0.4); }
-    50% { box-shadow: 0 0 30px rgba(139, 69, 255, 0.6); }
-  }
-  
-  .pulse-animation {
-    animation: pulse-neon 2s ease-in-out infinite;
+  /* Static neon glow for logo - no pulsing */
+  .static-neon-glow {
+    box-shadow: 
+      0 0 10px rgba(139, 69, 255, 0.6),
+      0 0 20px rgba(139, 69, 255, 0.4),
+      0 0 30px rgba(139, 69, 255, 0.3);
   }
 
   .data-grid {

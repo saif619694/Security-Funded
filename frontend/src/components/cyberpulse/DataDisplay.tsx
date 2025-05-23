@@ -3,7 +3,7 @@ import { Building, Calendar, DollarSign, ExternalLink, Globe, Users, TrendingUp 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CompanyData, SortField } from '@/types';
+import { CompanyData, SortField, Investor } from '@/types';
 
 interface DataDisplayProps {
   data: CompanyData[];
@@ -18,6 +18,14 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   formatAmount, 
   getRoundColor 
 }) => {
+  // Helper function to check if investor is an object or string
+  const getInvestorInfo = (investor: string | Investor): { name: string; url?: string } => {
+    if (typeof investor === 'string') {
+      return { name: investor };
+    }
+    return investor;
+  };
+
   if (data.length === 0) {
     return (
       <Card className="company-card border-purple-500/20">
@@ -41,7 +49,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         <Button
           onClick={() => handleSort('company_name')}
           variant="outline"
-          className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 transition-all"
+          className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 hover:text-white transition-all"
         >
           <Building className="h-4 w-4 mr-2" />
           Sort by Company
@@ -49,7 +57,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         <Button
           onClick={() => handleSort('amount')}
           variant="outline"
-          className="bg-black/60 border-green-500/30 text-green-300 hover:bg-green-500/20 hover:border-green-400 transition-all"
+          className="bg-black/60 border-green-500/30 text-green-300 hover:bg-green-500/20 hover:border-green-400 hover:text-white transition-all"
         >
           <DollarSign className="h-4 w-4 mr-2" />
           Sort by Amount
@@ -57,7 +65,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         <Button
           onClick={() => handleSort('date')}
           variant="outline"
-          className="bg-black/60 border-orange-500/30 text-orange-300 hover:bg-orange-500/20 hover:border-orange-400 transition-all"
+          className="bg-black/60 border-orange-500/30 text-orange-300 hover:bg-orange-500/20 hover:border-orange-400 hover:text-white transition-all"
         >
           <Calendar className="h-4 w-4 mr-2" />
           Sort by Date
@@ -73,91 +81,130 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
-                    {item.company_name}
+                    {item.company_name || 'Unknown Company'}
                   </h3>
                   <Badge className={`${getRoundColor(item.round)} text-sm font-medium`}>
-                    {item.round}
+                    {item.round || 'Unknown Round'}
                   </Badge>
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                     {item.amount === 0 ? 'Undisclosed' : formatAmount(item.amount)}
                   </div>
-                  <div className="text-sm text-gray-400 flex items-center gap-1">
+                  <div className="text-sm text-gray-400 flex items-center gap-1 justify-end">
                     <Calendar className="h-3 w-3" />
-                    {new Date(item.date).toLocaleDateString('en-US', { 
+                    {item.date ? new Date(item.date).toLocaleDateString('en-US', { 
                       month: 'short', 
                       day: 'numeric', 
                       year: 'numeric' 
-                    })}
+                    }) : 'Unknown Date'}
                   </div>
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
-                {item.description}
+              <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3 min-h-[3.6rem]">
+                {item.description || 'No description available.'}
               </p>
 
-              {/* Company Details */}
+              {/* Company Details - Consistent Layout */}
               <div className="space-y-3 mb-4">
-                <div className="flex items-center gap-2 text-sm">
-                  <Building className="h-4 w-4 text-blue-400" />
+                {/* Type Row - Always Present */}
+                <div className="flex items-center gap-2 text-sm min-h-[1.25rem]">
+                  <Building className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   <span className="text-gray-400">Type:</span>
-                  <span className="text-blue-300 font-medium">{item.company_type}</span>
+                  <span className="text-blue-300 font-medium">
+                    {item.company_type || 'Unknown'}
+                  </span>
                 </div>
                 
-                {item.investors && item.investors.length > 0 && (
-                  <div className="flex items-start gap-2 text-sm">
-                    <Users className="h-4 w-4 text-orange-400 mt-0.5" />
-                    <span className="text-gray-400">Investors:</span>
-                    <div className="flex-1">
+                {/* Investors Row - Always Present, using actual URLs from data */}
+                <div className="flex items-start gap-2 text-sm min-h-[1.25rem]">
+                  <Users className="h-4 w-4 text-orange-400 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-400">Investors:</span>
+                  <div className="flex-1">
+                    {item.investors && Array.isArray(item.investors) && item.investors.length > 0 ? (
                       <div className="flex flex-wrap gap-1">
-                        {item.investors.slice(0, 3).map((investor, idx) => (
-                          <Badge key={idx} variant="secondary" className="bg-orange-500/20 text-orange-300 border-orange-500/30 text-xs">
-                            {investor}
-                          </Badge>
-                        ))}
+                        {item.investors.slice(0, 3).map((investor, idx) => {
+                          const investorInfo = getInvestorInfo(investor);
+                          return investorInfo.url ? (
+                            <button
+                              key={idx}
+                              onClick={() => window.open(investorInfo.url, '_blank')}
+                              className="bg-orange-500/20 text-orange-300 border border-orange-500/30 text-xs px-2 py-1 rounded-full hover:bg-orange-500/30 hover:text-white transition-all cursor-pointer"
+                            >
+                              {investorInfo.name}
+                            </button>
+                          ) : (
+                            <Badge key={idx} variant="secondary" className="bg-orange-500/20 text-orange-300 border-orange-500/30 text-xs">
+                              {investorInfo.name}
+                            </Badge>
+                          );
+                        })}
                         {item.investors.length > 3 && (
                           <Badge variant="secondary" className="bg-gray-500/20 text-gray-400 border-gray-500/30 text-xs">
                             +{item.investors.length - 3} more
                           </Badge>
                         )}
                       </div>
-                    </div>
+                    ) : (
+                      // Empty space to maintain layout
+                      <span className="text-xs opacity-0 select-none">.</span>
+                    )}
                   </div>
-                )}
+                </div>
 
-                <div className="flex items-center gap-2 text-sm">
-                  <Globe className="h-4 w-4 text-purple-400" />
+                {/* Source Row - Always Present */}
+                <div className="flex items-center gap-2 text-sm min-h-[1.25rem]">
+                  <Globe className="h-4 w-4 text-purple-400 flex-shrink-0" />
                   <span className="text-gray-400">Source:</span>
-                  <span className="text-purple-300 font-medium">{item.source}</span>
+                  {item.source ? (
+                    <span className="text-purple-300 font-medium">{item.source}</span>
+                  ) : item.reference ? (
+                    <button
+                      onClick={() => window.open(item.reference, '_blank')}
+                      className="text-purple-300 font-medium hover:text-white transition-colors underline"
+                    >
+                      Return on Security
+                    </button>
+                  ) : (
+                    <span className="text-gray-500 text-xs">Unknown source</span>
+                  )}
                 </div>
               </div>
 
               {/* Action Buttons */}
               <div className="flex gap-2 pt-4 border-t border-gray-800">
-                {item.company_url && (
+                {item.company_url ? (
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex-1 bg-black/40 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 transition-all"
+                    className="flex-1 bg-black/40 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 hover:text-white transition-all"
                     onClick={() => window.open(item.company_url, '_blank')}
                   >
                     <ExternalLink className="h-3 w-3 mr-2" />
                     Website
                   </Button>
+                ) : (
+                  <div className="flex-1 bg-black/20 border border-gray-700/30 text-gray-500 text-sm rounded-md px-3 py-2 text-center">
+                    No Website
+                  </div>
                 )}
-                {item.story_link && (
+                
+                {item.story_link ? (
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex-1 bg-black/40 border-orange-500/30 text-orange-300 hover:bg-orange-500/20 hover:border-orange-400 transition-all"
+                    className="flex-1 bg-black/40 border-orange-500/30 text-orange-300 hover:bg-orange-500/20 hover:border-orange-400 hover:text-white transition-all"
                     onClick={() => window.open(item.story_link, '_blank')}
                   >
                     <TrendingUp className="h-3 w-3 mr-2" />
                     Story
                   </Button>
+                ) : (
+                  <div className="flex-1 bg-black/20 border border-gray-700/30 text-gray-500 text-sm rounded-md px-3 py-2 text-center">
+                    No Story
+                  </div>
                 )}
               </div>
             </CardContent>

@@ -1,3 +1,8 @@
+export interface Investor {
+  name: string;
+  url?: string;
+}
+
 export interface CompanyData {
   id: string;
   description: string;
@@ -5,7 +10,7 @@ export interface CompanyData {
   company_url: string;
   amount: number;
   round: string;
-  investors: string[];
+  investors: (string | Investor)[];
   story_link: string;
   source: string;
   date: string;

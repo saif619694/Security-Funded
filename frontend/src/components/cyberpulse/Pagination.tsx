@@ -73,7 +73,7 @@ const Pagination: React.FC<PaginationProps> = ({
               size="sm"
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
-              className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Previous
@@ -95,7 +95,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     className={
                       page === currentPage 
                         ? "bg-gradient-to-r from-purple-500 to-orange-500 text-white font-bold shadow-lg neon-glow" 
-                        : "bg-black/60 border-gray-600 text-gray-300 hover:bg-purple-500/20 hover:border-purple-400 hover:text-purple-300 transition-all"
+                        : "bg-black/60 border-gray-600 text-gray-300 hover:bg-purple-500/20 hover:border-purple-400 hover:text-white transition-all"
                     }
                   >
                     {page}
@@ -110,7 +110,7 @@ const Pagination: React.FC<PaginationProps> = ({
               size="sm"
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               Next
               <ChevronRight className="h-4 w-4 ml-1" />
