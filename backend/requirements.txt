@@ -2,5 +2,6 @@ curl_cffi
 beautifulsoup4
 pymongo
 flask
+flask-cors
 uvicorn
 gunicorn
