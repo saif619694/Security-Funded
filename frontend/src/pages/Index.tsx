@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import type { JSX } from 'react';
 import Header from '@/components/cyberpulse/Header';
 import SearchBar from '@/components/cyberpulse/SearchBar';
 import DataTable from '@/components/cyberpulse/DataTable';
