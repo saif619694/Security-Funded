@@ -20,10 +20,10 @@ const Index: React.FC = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [availableRounds, setAvailableRounds] = useState<string[]>([]);
+  const [refreshKey, setRefreshKey] = useState<number>(0);
   
   const itemsPerPage = 12;
 
-  // Fetch funding rounds for filter dropdown
   useEffect(() => {
     const fetchRounds = async () => {
       try {
@@ -34,9 +34,8 @@ const Index: React.FC = () => {
       }
     };
     fetchRounds();
-  }, []);
+  }, [refreshKey]);
 
-  // Fetch data whenever filters change
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -53,6 +52,10 @@ const Index: React.FC = () => {
         setData(response.data);
         setTotalPages(response.totalPages);
         setTotalCount(response.totalCount);
+        
+        if (response.data.length > 0) {
+          console.log('Sample investor data:', response.data[0].investors);
+        }
       } catch (error) {
         toast({
           title: "Error",
@@ -66,12 +69,29 @@ const Index: React.FC = () => {
     };
 
     fetchData();
-  }, [currentPage, sortField, sortDirection, searchTerm, filterRound]);
+  }, [currentPage, sortField, sortDirection, searchTerm, filterRound, refreshKey]);
 
-  // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, filterRound, sortField, sortDirection]);
+
+  useEffect(() => {
+    const handleDataCollectionComplete = () => {
+      setRefreshKey(prev => prev + 1);
+      
+      toast({
+        title: "Data Refreshed",
+        description: "The funding data has been updated with the latest information.",
+        variant: "default",
+      });
+    };
+
+    window.addEventListener('dataCollectionComplete', handleDataCollectionComplete);
+    
+    return () => {
+      window.removeEventListener('dataCollectionComplete', handleDataCollectionComplete);
+    };
+  }, []);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -88,8 +108,11 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-black">
       <Header />
       
-      {/* Increased container size by 10% - changed from max-w-7xl to a larger custom width */}
-      <div className="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main 
+        className="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-12" 
+        data-section="data-display"
+        id="funding-data-section"
+      >
         <SearchBar 
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -131,7 +154,7 @@ const Index: React.FC = () => {
             )}
           </>
         )}
-      </div>
+      </main>
     </div>
   );
 };

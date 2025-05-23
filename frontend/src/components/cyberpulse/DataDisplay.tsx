@@ -18,12 +18,24 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   formatAmount, 
   getRoundColor 
 }) => {
-  // Helper function to check if investor is an object or string
   const getInvestorInfo = (investor: string | Investor): { name: string; url?: string } => {
     if (typeof investor === 'string') {
       return { name: investor };
     }
-    return investor;
+    return {
+      name: investor.name || 'Unknown Investor',
+      url: investor.url
+    };
+  };
+
+  const handleInvestorClick = (investorInfo: { name: string; url?: string }) => {
+    if (investorInfo.url) {
+      let url = investorInfo.url;
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
   };
 
   if (data.length === 0) {
@@ -44,7 +56,6 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
 
   return (
     <div className="space-y-8">
-      {/* Sort Controls */}
       <div className="flex flex-wrap gap-4 justify-center">
         <Button
           onClick={() => handleSort('company_name')}
@@ -72,12 +83,10 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         </Button>
       </div>
 
-      {/* Data Grid */}
       <div className="data-grid">
         {data.map((item) => (
           <Card key={item.id} className="company-card card-hover group">
             <CardContent className="p-6">
-              {/* Header */}
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
@@ -102,14 +111,11 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
                 </div>
               </div>
 
-              {/* Description */}
               <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3 min-h-[3.6rem]">
                 {item.description || 'No description available.'}
               </p>
 
-              {/* Company Details - Consistent Layout */}
               <div className="space-y-3 mb-4">
-                {/* Type Row - Always Present */}
                 <div className="flex items-center gap-2 text-sm min-h-[1.25rem]">
                   <Building className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   <span className="text-gray-400">Type:</span>
@@ -118,7 +124,6 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
                   </span>
                 </div>
                 
-                {/* Investors Row - Always Present, using actual URLs from data */}
                 <div className="flex items-start gap-2 text-sm min-h-[1.25rem]">
                   <Users className="h-4 w-4 text-orange-400 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-400">Investors:</span>
@@ -127,34 +132,45 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
                       <div className="flex flex-wrap gap-1">
                         {item.investors.slice(0, 3).map((investor, idx) => {
                           const investorInfo = getInvestorInfo(investor);
-                          return investorInfo.url ? (
+                          const hasUrl = investorInfo.url && investorInfo.url.trim() !== '';
+                          
+                          return hasUrl ? (
                             <button
                               key={idx}
-                              onClick={() => window.open(investorInfo.url, '_blank')}
-                              className="bg-orange-500/20 text-orange-300 border border-orange-500/30 text-xs px-2 py-1 rounded-full hover:bg-orange-500/30 hover:text-white transition-all cursor-pointer"
+                              onClick={() => handleInvestorClick(investorInfo)}
+                              className="bg-orange-500/20 text-orange-300 border border-orange-500/30 text-xs px-2 py-1 rounded-full hover:bg-orange-500/40 hover:text-white hover:border-orange-400 transition-all cursor-pointer transform hover:scale-105 flex items-center gap-1"
+                              title={`Visit ${investorInfo.name} - ${investorInfo.url}`}
                             >
                               {investorInfo.name}
+                              <ExternalLink className="h-2.5 w-2.5" />
                             </button>
                           ) : (
-                            <Badge key={idx} variant="secondary" className="bg-orange-500/20 text-orange-300 border-orange-500/30 text-xs">
+                            <Badge 
+                              key={idx} 
+                              variant="secondary" 
+                              className="bg-gray-500/20 text-gray-300 border-gray-500/30 text-xs cursor-default"
+                              title={`${investorInfo.name} (No URL available)`}
+                            >
                               {investorInfo.name}
                             </Badge>
                           );
                         })}
                         {item.investors.length > 3 && (
-                          <Badge variant="secondary" className="bg-gray-500/20 text-gray-400 border-gray-500/30 text-xs">
+                          <Badge 
+                            variant="secondary" 
+                            className="bg-gray-500/20 text-gray-400 border-gray-500/30 text-xs"
+                            title={`Total investors: ${item.investors.length}`}
+                          >
                             +{item.investors.length - 3} more
                           </Badge>
                         )}
                       </div>
                     ) : (
-                      // Empty space to maintain layout
-                      <span className="text-xs opacity-0 select-none">.</span>
+                      <span className="text-gray-500 text-xs">No investors listed</span>
                     )}
                   </div>
                 </div>
 
-                {/* Source Row - Always Present */}
                 <div className="flex items-center gap-2 text-sm min-h-[1.25rem]">
                   <Globe className="h-4 w-4 text-purple-400 flex-shrink-0" />
                   <span className="text-gray-400">Source:</span>
@@ -173,7 +189,6 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex gap-2 pt-4 border-t border-gray-800">
                 {item.company_url ? (
                   <Button

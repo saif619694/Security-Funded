@@ -62,4 +62,20 @@ export const api = {
     }
     return response.json();
   },
+
+  async triggerDataCollection(): Promise<{ message: string }> {
+    const response = await fetch(`${API_BASE_URL}/api/get_data`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      throw new Error(errorData.error || 'Failed to trigger data collection');
+    }
+    
+    return response.json();
+  },
 };
