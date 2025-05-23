@@ -18,7 +18,7 @@ headers = {
 
 def get_links():
     post_links = {"links": []}
-    for i in range(1, 20):
+    for i in range(1, 2):
         print(f"Page {i}")
         time.sleep(1)
         params = {

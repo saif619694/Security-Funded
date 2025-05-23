@@ -4,6 +4,9 @@ from security_funded import get_data
 from pymongo import MongoClient, ASCENDING, DESCENDING
 import os
 from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.interval import IntervalTrigger
+import atexit
 
 # Get the absolute path to the directory where main.py is located
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -160,4 +163,18 @@ def serve_frontend(path):
 
 
 if __name__ == '__main__':
+    # Initialize and start the scheduler
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(
+        func=api_get_data,
+        trigger=IntervalTrigger(hours=4),
+        id='data_collection_job',
+        name='Collect data every 4 hours',
+        replace_existing=True
+    )
+    scheduler.start()
+    
+    # Shut down the scheduler when exiting the app
+    atexit.register(lambda: scheduler.shutdown())
+    
     app.run(host='0.0.0.0', port=8000)
