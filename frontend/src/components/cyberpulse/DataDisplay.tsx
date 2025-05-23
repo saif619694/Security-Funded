@@ -18,10 +18,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   formatAmount, 
   getRoundColor 
 }) => {
-  const getInvestorInfo = (investor: string | Investor): { name: string; url?: string } => {
-    if (typeof investor === 'string') {
-      return { name: investor };
-    }
+  const getInvestorInfo = (investor: Investor): { name: string; url?: string } => {
     return {
       name: investor.name || 'Unknown Investor',
       url: investor.url
@@ -130,23 +127,22 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
                   <div className="flex-1">
                     {item.investors && Array.isArray(item.investors) && item.investors.length > 0 ? (
                       <div className="flex flex-wrap gap-1">
-                        {item.investors.slice(0, 3).map((investor, idx) => {
+                        {item.investors.slice(0, 5).map((investor, idx) => {
                           const investorInfo = getInvestorInfo(investor);
                           const hasUrl = investorInfo.url && investorInfo.url.trim() !== '';
                           
                           return hasUrl ? (
                             <button
-                              key={idx}
+                              key={`${investorInfo.name}-${idx}`}
                               onClick={() => handleInvestorClick(investorInfo)}
                               className="bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs px-3 py-1.5 rounded-lg hover:bg-cyan-500/30 hover:text-white hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-200 cursor-pointer transform hover:scale-105 flex items-center gap-1.5 font-medium"
                               title={`Visit ${investorInfo.name} - ${investorInfo.url}`}
                             >
                               {investorInfo.name}
-                              <ExternalLink className="h-3 w-3" />
                             </button>
                           ) : (
                             <Badge 
-                              key={idx} 
+                              key={`${investorInfo.name}-${idx}`}
                               variant="secondary" 
                               className="bg-gray-600/30 text-gray-300 border-gray-500/40 text-xs px-3 py-1.5 cursor-default rounded-lg"
                               title={`${investorInfo.name} (No URL available)`}
@@ -155,17 +151,19 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
                             </Badge>
                           );
                         })}
-                        {item.investors.length > 3 && (
+                        {item.investors.length > 5 && (
                           <Badge 
                             variant="secondary" 
                             className="bg-gray-600/30 text-gray-400 border-gray-500/40 text-xs px-3 py-1.5 rounded-lg"
                             title={`Total investors: ${item.investors.length}`}
                           >
-                            +{item.investors.length - 3} more
+                            +{item.investors.length - 5} more
                           </Badge>
                         )}
                       </div>
-                    ) : null}
+                    ) : (
+                      <span className="text-gray-500 text-xs"></span>
+                    )}
                   </div>
                 </div>
 

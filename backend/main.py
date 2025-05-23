@@ -70,6 +70,24 @@ def get_funding_data():
         # Convert cursor to list and format data
         data = []
         for idx, doc in enumerate(cursor):
+            # Process investors properly - keep full investor objects
+            investors = doc.get('investors', [])
+            processed_investors = []
+            
+            for inv in investors:
+                if isinstance(inv, dict):
+                    # If it's already a dict with name and url, keep it as is
+                    processed_investors.append({
+                        'name': inv.get('name', ''),
+                        'url': inv.get('url', '')
+                    })
+                else:
+                    # If it's just a string, create a dict with name only
+                    processed_investors.append({
+                        'name': str(inv),
+                        'url': ''
+                    })
+            
             # Convert MongoDB document to frontend format
             formatted_doc = {
                 'id': str(doc.get('_id')),
@@ -78,7 +96,7 @@ def get_funding_data():
                 'company_url': doc.get('company_url', ''),
                 'amount': doc.get('amount', 0),
                 'round': doc.get('round', ''),
-                'investors': [inv.get('name', '') if isinstance(inv, dict) else inv for inv in doc.get('investors', [])],
+                'investors': processed_investors,  # Return full investor objects
                 'story_link': doc.get('story_link', ''),
                 'source': doc.get('Source', doc.get('source', '')),
                 'date': doc.get('date', ''),

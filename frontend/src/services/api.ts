@@ -12,7 +12,7 @@ export interface CompanyData {
   company_url: string;
   amount: number;
   round: string;
-  investors: (string | Investor)[];
+  investors: Investor[]; // Updated to be consistent - always Investor objects
   story_link: string;
   source: string;
   date: string;
