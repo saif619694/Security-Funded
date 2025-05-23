@@ -9,6 +9,7 @@ interface SearchBarProps {
   filterRound: string;
   setFilterRound: (round: string) => void;
   resultsCount: number;
+  availableRounds?: string[];
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ 
@@ -16,7 +17,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   setSearchTerm, 
   filterRound, 
   setFilterRound, 
-  resultsCount 
+  resultsCount,
+  availableRounds = []
 }) => {
   return (
     <Card className="mb-8 bg-slate-800/50 border-slate-700 backdrop-blur-sm">
@@ -38,11 +40,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
               className="px-3 py-2 bg-slate-900/50 border border-slate-600 rounded-md text-slate-200"
             >
               <option value="">All Rounds</option>
-              <option value="Pre-Seed">Pre-Seed</option>
-              <option value="Seed">Seed</option>
-              <option value="Series A">Series A</option>
-              <option value="Series B">Series B</option>
-              <option value="Series C">Series C</option>
+              {availableRounds.map((round) => (
+                <option key={round} value={round}>
+                  {round}
+                </option>
+              ))}
             </select>
           </div>
           <div className="text-slate-400 text-sm">

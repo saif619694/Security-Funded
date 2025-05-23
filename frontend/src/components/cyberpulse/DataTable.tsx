@@ -18,6 +18,16 @@ const DataTable: React.FC<DataTableProps> = ({
   formatAmount, 
   getRoundColor 
 }) => {
+  if (data.length === 0) {
+    return (
+      <Card className="bg-slate-800/30 border-slate-700 backdrop-blur-sm">
+        <CardContent className="p-8 text-center">
+          <p className="text-slate-400">No funding data found.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="bg-slate-800/30 border-slate-700 backdrop-blur-sm overflow-hidden">
       <CardContent className="p-0">
@@ -74,7 +84,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   </td>
                   <td className="p-4">
                     <div className="text-lg font-bold text-cyan-400">
-                      {formatAmount(item.amount)}
+                      {item.amount === 0 ? 'Undisclosed' : formatAmount(item.amount)}
                     </div>
                   </td>
                   <td className="p-4">
@@ -88,22 +98,26 @@ const DataTable: React.FC<DataTableProps> = ({
                   <td className="p-4 text-slate-300">{item.source}</td>
                   <td className="p-4">
                     <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="border-slate-600 text-slate-300 hover:bg-cyan-500/20 hover:border-cyan-500 hover:text-cyan-400"
-                        onClick={() => window.open(item.company_url, '_blank')}
-                      >
-                        <ExternalLink className="h-3 w-3" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="border-slate-600 text-slate-300 hover:bg-cyan-500/20 hover:border-cyan-500 hover:text-cyan-400"
-                        onClick={() => window.open(item.story_link, '_blank')}
-                      >
-                        Story
-                      </Button>
+                      {item.company_url && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-slate-600 text-slate-300 hover:bg-cyan-500/20 hover:border-cyan-500 hover:text-cyan-400"
+                          onClick={() => window.open(item.company_url, '_blank')}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      )}
+                      {item.story_link && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-slate-600 text-slate-300 hover:bg-cyan-500/20 hover:border-cyan-500 hover:text-cyan-400"
+                          onClick={() => window.open(item.story_link, '_blank')}
+                        >
+                          Story
+                        </Button>
+                      )}
                     </div>
                   </td>
                 </tr>
