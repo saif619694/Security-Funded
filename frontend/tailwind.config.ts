@@ -92,5 +92,8 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+	plugins: [
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		require("tailwindcss-animate"),
+	],
+} satisfies Config

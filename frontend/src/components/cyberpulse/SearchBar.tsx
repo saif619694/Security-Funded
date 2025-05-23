@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -12,13 +11,13 @@ interface SearchBarProps {
   resultsCount: number;
 }
 
-const SearchBar = ({ 
+const SearchBar: React.FC<SearchBarProps> = ({ 
   searchTerm, 
   setSearchTerm, 
   filterRound, 
   setFilterRound, 
   resultsCount 
-}: SearchBarProps) => {
+}) => {
   return (
     <Card className="mb-8 bg-slate-800/50 border-slate-700 backdrop-blur-sm">
       <CardContent className="p-6">

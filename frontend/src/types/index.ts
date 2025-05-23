@@ -1,0 +1,17 @@
+export interface CompanyData {
+  id: number;
+  description: string;
+  company_name: string;
+  company_url: string;
+  amount: number;
+  round: string;
+  investors: string[];
+  story_link: string;
+  source: string;
+  date: string;
+  company_type: string;
+  reference: string;
+}
+
+export type SortField = 'company_name' | 'amount' | 'date';
+export type SortDirection = 'asc' | 'desc';

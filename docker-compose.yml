@@ -5,9 +5,7 @@ services:
     build: .
     ports:
       - "8000:8000"
-      - "5173:5173" # Expose frontend port from the backend container
     volumes:
       - ./backend:/app/backend
-      - ./frontend:/app/frontend # Mount frontend for development, if needed, otherwise remove
     environment:
       - PYTHONUNBUFFERED=1

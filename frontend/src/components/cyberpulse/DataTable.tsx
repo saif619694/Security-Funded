@@ -1,33 +1,23 @@
-
 import React from 'react';
 import { Building, ArrowUpDown, Calendar, DollarSign, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
-interface CompanyData {
-  id: number;
-  description: string;
-  company_name: string;
-  company_url: string;
-  amount: number;
-  round: string;
-  investors: string[];
-  story_link: string;
-  source: string;
-  date: string;
-  company_type: string;
-  reference: string;
-}
+import { CompanyData, SortField } from '@/types';
 
 interface DataTableProps {
   data: CompanyData[];
-  handleSort: (field: string) => void;
+  handleSort: (field: SortField) => void;
   formatAmount: (amount: number) => string;
   getRoundColor: (round: string) => string;
 }
 
-const DataTable = ({ data, handleSort, formatAmount, getRoundColor }: DataTableProps) => {
+const DataTable: React.FC<DataTableProps> = ({ 
+  data, 
+  handleSort, 
+  formatAmount, 
+  getRoundColor 
+}) => {
   return (
     <Card className="bg-slate-800/30 border-slate-700 backdrop-blur-sm overflow-hidden">
       <CardContent className="p-0">

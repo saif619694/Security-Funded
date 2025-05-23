@@ -2,7 +2,11 @@ from flask import Flask, jsonify, send_from_directory
 from security_funded import get_data
 import os
 
-app = Flask(__name__, static_folder='static/frontend', static_url_path='/static/frontend')
+# Get the absolute path to the directory where main.py is located
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+FRONTEND_BUILD_DIR = os.path.join(BASE_DIR, 'static', 'frontend')
+
+app = Flask(__name__, static_folder=FRONTEND_BUILD_DIR)
 
 # API endpoint
 @app.route('/api/get_data', methods=['GET'])
@@ -21,6 +25,7 @@ def serve_frontend(path):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

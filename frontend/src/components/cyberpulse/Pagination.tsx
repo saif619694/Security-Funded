@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,14 +11,14 @@ interface PaginationProps {
   setCurrentPage: (page: number) => void;
 }
 
-const Pagination = ({
+const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   startIndex,
   itemsPerPage,
   totalItems,
   setCurrentPage,
-}: PaginationProps) => {
+}) => {
   return (
     <div className="mt-8 flex items-center justify-between">
       <div className="text-slate-400 text-sm">

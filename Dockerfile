@@ -7,7 +7,7 @@ WORKDIR /app/frontend
 
 # Copy only necessary files for dependency installation first to leverage Docker cache
 COPY frontend/package.json frontend/package-lock.json frontend/bun.lockb ./
-RUN npm install --omit=dev
+RUN npm install
 
 # Copy the rest of the frontend source code
 COPY frontend/ .
@@ -33,4 +33,4 @@ COPY --from=frontend-builder /app/frontend/dist /app/backend/static/frontend
 
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "-w", "1", "main:app", "--bind", "0.0.0.0:8000"]
