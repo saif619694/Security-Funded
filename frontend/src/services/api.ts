@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://security-funded.onrender.com/';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://cyber-pulse-1ap3.onrender.com';
 
 export interface Investor {
   name: string;
