@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface PaginationProps {
@@ -19,26 +19,25 @@ const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   setCurrentPage,
 }) => {
-  // Generate page numbers to display
   const getPageNumbers = () => {
     const pages = [];
-    const maxPagesToShow = 5;
+    const maxPagesToShow = 7;
     
     if (totalPages <= maxPagesToShow) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 4; i++) {
+      if (currentPage <= 4) {
+        for (let i = 1; i <= 5; i++) {
           pages.push(i);
         }
         pages.push('...');
         pages.push(totalPages);
-      } else if (currentPage >= totalPages - 2) {
+      } else if (currentPage >= totalPages - 3) {
         pages.push(1);
         pages.push('...');
-        for (let i = totalPages - 3; i <= totalPages; i++) {
+        for (let i = totalPages - 4; i <= totalPages; i++) {
           pages.push(i);
         }
       } else {
@@ -56,53 +55,68 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="mt-8 flex items-center justify-between">
-      <div className="text-slate-400 text-sm">
-        Showing {Math.min(startIndex + 1, totalItems)} to {Math.min(startIndex + itemsPerPage, totalItems)} of {totalItems} results
-      </div>
-      <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="border-slate-600 text-slate-300 hover:bg-cyan-500/20 hover:border-cyan-500 hover:text-cyan-400 disabled:opacity-50"
-        >
-          <ChevronLeft className="h-4 w-4" />
-          Previous
-        </Button>
-        
-        <div className="flex gap-1">
-          {getPageNumbers().map((page, index) => (
-            page === '...' ? (
-              <span key={`ellipsis-${index}`} className="px-3 py-1 text-slate-400">...</span>
-            ) : (
-              <Button
-                key={page}
-                variant={page === currentPage ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCurrentPage(page as number)}
-                className={page === currentPage 
-                  ? "cyber-gradient text-slate-900 font-semibold" 
-                  : "border-slate-600 text-slate-300 hover:bg-cyan-500/20 hover:border-cyan-500 hover:text-cyan-400"
-                }
-              >
-                {page}
-              </Button>
-            )
-          ))}
-        </div>
+    <div className="mt-12">
+      <div className="company-card border-purple-500/20 rounded-2xl p-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Results Info */}
+          <div className="text-gray-400 text-sm">
+            Showing <span className="text-purple-300 font-semibold">{Math.min(startIndex + 1, totalItems)}</span> to{' '}
+            <span className="text-purple-300 font-semibold">{Math.min(startIndex + itemsPerPage, totalItems)}</span> of{' '}
+            <span className="text-purple-300 font-semibold">{totalItems.toLocaleString()}</span> results
+          </div>
+          
+          {/* Pagination Controls */}
+          <div className="flex items-center gap-2">
+            {/* Previous Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Previous
+            </Button>
+            
+            {/* Page Numbers */}
+            <div className="flex gap-1">
+              {getPageNumbers().map((page, index) => (
+                page === '...' ? (
+                  <div key={`ellipsis-${index}`} className="px-3 py-2 text-gray-500">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </div>
+                ) : (
+                  <Button
+                    key={page}
+                    variant={page === currentPage ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentPage(page as number)}
+                    className={
+                      page === currentPage 
+                        ? "bg-gradient-to-r from-purple-500 to-orange-500 text-white font-bold shadow-lg neon-glow" 
+                        : "bg-black/60 border-gray-600 text-gray-300 hover:bg-purple-500/20 hover:border-purple-400 hover:text-purple-300 transition-all"
+                    }
+                  >
+                    {page}
+                  </Button>
+                )
+              ))}
+            </div>
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="border-slate-600 text-slate-300 hover:bg-cyan-500/20 hover:border-cyan-500 hover:text-cyan-400 disabled:opacity-50"
-        >
-          Next
-          <ChevronRight className="h-4 w-4" />
-        </Button>
+            {/* Next Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="bg-black/60 border-purple-500/30 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              Next
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

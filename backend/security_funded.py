@@ -18,7 +18,7 @@ headers = {
 
 def get_links():
     post_links = {"links": []}
-    for i in range(1, 2):
+    for i in range(1, 20):
         print(f"Page {i}")
         time.sleep(1)
         params = {
@@ -70,7 +70,21 @@ def parse_investment_data(soup, date, company_type):
                 item['amount'] = 0
         
         if parsed_round_text:
-            item['round'] = parsed_round_text.replace('in Equity Crowdfunding', 'Equity Crowdfunding').replace('Round', '').strip()
+            parsed_round_text = parsed_round_text.lower().strip()
+            parsed_round_text = parsed_round_text.replace('round', '')
+            if 'and' in parsed_round_text:
+                parsed_round_text = parsed_round_text.split('and')[0]
+            if '(' in parsed_round_text:
+                parsed_round_text = parsed_round_text.split('(')[0]
+            parsed_round_text = parsed_round_text.replace('from', '')
+            parsed_round_text = parsed_round_text.replace('in ', '')
+            if 'with' in parsed_round_text:
+                parsed_round_text = parsed_round_text.split('with')[0]
+            if 'but' in parsed_round_text:
+                parsed_round_text = parsed_round_text.split('but')[0]
+            parsed_round_text = parsed_round_text.strip()
+            split_round = parsed_round_text.split()
+            item['round'] = ' '.join(word.capitalize() for word in split_round)
             
         links = p.find_all('a', class_='link')
         investors = []
@@ -198,7 +212,7 @@ def parse_article(link):
 def get_data():
     db_username = os.getenv("DB_USERNAME")
     db_password = os.getenv("DB_PASSWORD")
-    client = MongoClient(f'mongodb+srv://{db_username}:{db_password}@securityfun.v19tawj.mongodb.net/')
+    client = MongoClient(f'mongodb+srv://{db_username}:{db_password}@securityfunded.v19tawj.mongodb.net/?retryWrites=true&w=majority')
     db = client['security_funded']
     collection = db['SecurityFunded']
     links = get_links()
@@ -207,7 +221,6 @@ def get_data():
     skipped_count = 0
     error_count = 0
     for link in links['links']: 
-        # try:
         print(f"Processing {link}")
         existing_article = collection.find_one({"reference": link})
         if existing_article:
@@ -234,5 +247,6 @@ def get_data():
 
 
 if __name__ == "__main__":
+    import pprint
     get_data()
     print("Data collection complete.")

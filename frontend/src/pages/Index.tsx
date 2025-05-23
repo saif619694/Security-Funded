@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/cyberpulse/Header';
 import SearchBar from '@/components/cyberpulse/SearchBar';
-import DataTable from '@/components/cyberpulse/DataTable';
+import DataDisplay from '@/components/cyberpulse/DataDisplay';
 import Pagination from '@/components/cyberpulse/Pagination';
 import { formatAmount, getRoundColor } from '@/utils/formatUtils';
 import { CompanyData, SortField, SortDirection } from '@/types';
 import { api } from '@/services/api';
 import { toast } from '@/hooks/use-toast';
+import { Loader2, Sparkles } from 'lucide-react';
 
 const Index: React.FC = () => {
   const [data, setData] = useState<CompanyData[]>([]);
@@ -20,7 +21,7 @@ const Index: React.FC = () => {
   const [totalCount, setTotalCount] = useState<number>(0);
   const [availableRounds, setAvailableRounds] = useState<string[]>([]);
   
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
 
   // Fetch funding rounds for filter dropdown
   useEffect(() => {
@@ -84,8 +85,9 @@ const Index: React.FC = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-black">
       <Header />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <SearchBar 
           searchTerm={searchTerm}
@@ -97,12 +99,19 @@ const Index: React.FC = () => {
         />
         
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
+          <div className="flex flex-col justify-center items-center h-64 space-y-4">
+            <div className="relative">
+              <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+              <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-orange-500 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1s' }}></div>
+            </div>
+            <div className="flex items-center gap-2 text-purple-300">
+              <Sparkles className="h-5 w-5 animate-pulse" />
+              <span className="text-lg font-medium">Loading funding intelligence...</span>
+            </div>
           </div>
         ) : (
           <>
-            <DataTable 
+            <DataDisplay 
               data={data}
               handleSort={handleSort}
               formatAmount={formatAmount}
