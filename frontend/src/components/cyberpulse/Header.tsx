@@ -75,9 +75,6 @@ const Header: React.FC = () => {
               
               <div className="flex flex-col items-start">
                 <span className="logo-text">CyberPulse</span>
-                <span className="text-xs text-gray-400 font-medium tracking-wide uppercase">
-                  Funding Intelligence
-                </span>
               </div>
             </div>
           </div>
